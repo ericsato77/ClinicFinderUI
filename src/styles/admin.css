@@ -4,52 +4,138 @@
 
 /* Admin login styles */
 .admin-login-container {
+  background: radial-gradient(1200px 400px at 10% 10%, rgba(22,119,255,0.06), transparent 10%),
+              linear-gradient(180deg, #fbfdff 0%, #ffffff 100%);
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 80px);
   padding: 48px 16px;
-  background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
 }
 
 .admin-card {
   width: 420px;
   max-width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.08);
-  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(16,24,40,0.12);
+  padding: 28px;
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.admin-card .ant-typography {
+/* subtle lift on hover */
+.admin-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 60px rgba(16,24,40,0.14);
+}
+
+/* logo block */
+.admin-card .login-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.admin-card .login-brand .logo-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  background: linear-gradient(135deg,#1677ff 0%, #69c0ff 100%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 22px;
+  box-shadow: 0 6px 18px rgba(22,119,255,0.18);
+}
+.admin-card .login-brand .logo-title {
+  font-weight: 700;
+  font-size: 20px;
+  color: rgba(2,6,23,0.9);
+}
+
+/* subtitle */
+.admin-card .login-subtitle {
   text-align: center;
-  margin-bottom: 12px;
+  color: rgba(2,6,23,0.6);
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+
+/* form spacing */
+.admin-card .ant-form-item {
+  margin-bottom: 14px;
 }
 
 .admin-card .ant-form-item-label > label {
-  font-weight: 600;
-  color: rgba(0,0,0,0.85);
+  font-size: 13px;
+  color: rgba(2,6,23,0.75);
 }
 
+/* inputs */
 .admin-card .ant-input,
 .admin-card .ant-input-password {
-  border-radius: 8px;
-  height: 44px;
+  border-radius: 10px;
+  height: 46px;
+  padding-left: 14px;
+  padding-right: 14px;
+  background: #fbfdff;
+  transition: box-shadow 140ms ease, border-color 140ms ease;
 }
 
+.admin-card .ant-input::placeholder,
+.admin-card .ant-input-password::placeholder {
+  color: rgba(2,6,23,0.28);
+}
+
+/* focus ring */
 .admin-card .ant-input:focus,
 .admin-card .ant-input-password:focus {
-  box-shadow: 0 0 0 3px rgba(22,119,255,0.08);
+  box-shadow: 0 6px 18px rgba(22,119,255,0.10);
   border-color: #1677ff;
 }
 
-.admin-card .ant-btn {
-  border-radius: 8px;
-  height: 44px;
+/* primary button */
+.admin-card .ant-btn-primary {
+  border-radius: 10px;
+  height: 46px;
+  background: linear-gradient(90deg,#1677ff 0%, #2ea3ff 100%);
+  border: none;
+  box-shadow: 0 8px 24px rgba(22,119,255,0.12);
+  font-weight: 700;
 }
 
-.admin-card .ant-btn-primary {
-  width: 100%;
-  font-weight: 600;
+.admin-card .ant-btn-primary:hover,
+.admin-card .ant-btn-primary:focus {
+  box-shadow: 0 14px 40px rgba(22,119,255,0.16);
+}
+
+/* helper row */
+.admin-card .login-helper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: rgba(2,6,23,0.55);
+}
+.admin-card .forgot-link {
+  color: rgba(2,6,23,0.6);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.admin-card .forgot-link:hover { color: #1677ff; }
+
+/* footer note */
+.admin-card .login-footer {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 12px;
+  color: rgba(2,6,23,0.45);
 }
 
 /* Admin dashboard styles */
@@ -107,5 +193,11 @@
 /* smaller screens */
 @media (max-width: 480px) {
   .admin-login-container { padding: 24px 12px; }
-  .admin-card { padding: 16px; }
+  .admin-card { padding: 20px; }
+  .admin-card {
+    width: 100%;
+    border-radius: 12px;
+  }
+  .admin-card .login-brand .logo-icon { width: 48px; height: 48px; font-size: 20px; }
+  .admin-card .login-brand .logo-title { font-size: 18px; }
 }
