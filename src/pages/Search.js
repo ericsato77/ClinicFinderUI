@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
     Layout, Row, Col, Input, Select, Checkbox, Slider,
     Switch, Rate, Card, List, Tag, Button, Typography,
-    Space, Drawer, FloatButton, Badge, Divider
+    Space, Drawer, FloatButton, Badge, Divider, Modal
 } from 'antd';
 import {
     SearchOutlined, EnvironmentOutlined, FilterOutlined,
@@ -17,6 +17,7 @@ const { Title, Text } = Typography;
 const SearchPage = () => {
     const { clinics, filters, updateFilter } = useClinics();
     const [mobileFiltersVisible, setMobileFiltersVisible] = useState(false);
+    const [mobileMapVisible, setMobileMapVisible] = useState(false);
 
     // Filter Panel Component
     const FilterPanel = () => (
@@ -87,6 +88,27 @@ const SearchPage = () => {
         </div>
     );
 
+    const MapContent = () => (
+        <div style={{ textAlign: 'center' }}>
+            <EnvironmentOutlined style={{ fontSize: 48, color: '#1890ff' }} />
+            <Title level={4} style={{ marginTop: 16 }}>Interactive Map</Title>
+            <Text type="secondary">Map integration placeholder</Text>
+            <div style={{ marginTop: 16, maxHeight: '60vh', overflowY: 'auto', textAlign: 'left' }}>
+                {clinics.map(c => (
+                    <Card key={c.id} size="small" style={{ marginBottom: 8 }}>
+                        <Space>
+                            <EnvironmentOutlined style={{ color: '#ff4d4f' }} />
+                            <Text strong>{c.name}</Text>
+                        </Space>
+                        <div style={{ paddingLeft: 24, fontSize: 12 }}>
+                            {c.address}
+                        </div>
+                    </Card>
+                ))}
+            </div>
+        </div>
+    );
+
     return (
         <Layout style={{ flex: 1, background: '#f0f2f5' }}>
             {/* Mobile Filter Drawer */}
@@ -99,6 +121,18 @@ const SearchPage = () => {
             >
                 <FilterPanel />
             </Drawer>
+
+            {/* Mobile Map Modal */}
+            <Modal
+                title="Map View"
+                open={mobileMapVisible}
+                onCancel={() => setMobileMapVisible(false)}
+                footer={null}
+                width="90%"
+                style={{ top: 20 }}
+            >
+                <MapContent />
+            </Modal>
 
             <Content style={{ padding: '24px' }}>
                 <Row gutter={[24, 24]}>
@@ -201,18 +235,7 @@ const SearchPage = () => {
                                         justifyContent: 'center'
                                     }}
                                 >
-                                    <div style={{ textAlign: 'center' }}>
-                                        <EnvironmentOutlined style={{ fontSize: 48, color: '#1890ff' }} />
-                                        <Title level={4} style={{ marginTop: 16 }}>Interactive Map</Title>
-                                        <Text type="secondary">Map integration placeholder</Text>
-                                        <div style={{ marginTop: 16 }}>
-                                            {clinics.map(c => (
-                                                <div key={c.id} style={{ fontSize: 10, color: '#666' }}>
-                                                    📍 {c.name}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
+                                    <MapContent />
                                 </Card>
                             </Col>
                         </Row>
@@ -225,7 +248,7 @@ const SearchPage = () => {
                 icon={<EnvironmentOutlined />}
                 type="primary"
                 style={{ right: 24, bottom: 24 }}
-                onClick={() => { /* Toggle map modal or view */ }}
+                onClick={() => setMobileMapVisible(true)}
                 tooltip="View Map"
             />
         </Layout>
