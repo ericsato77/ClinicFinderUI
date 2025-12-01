@@ -231,6 +231,30 @@
   box-shadow: inset 0 1px 0 rgba(16,24,40,0.02);
 }
 
+/* Make the admin search fill available space in the toolbar */
+.admin-toolbar .left {
+  flex: 1 1 auto;
+  min-width: 0; /* allow child to shrink inside flex container */
+}
+
+.admin-search {
+  width: 100%;
+  max-width: none;
+}
+
+/* Ant Input.Search renders an affix wrapper; force it to fill the container */
+.admin-search .ant-input-affix-wrapper,
+.admin-search .ant-input {
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+/* keep the search button aligned and not overflowing */
+.admin-search .ant-input-suffix,
+.admin-search .ant-input-search-button {
+  margin-left: 8px;
+}
+
 /* Table container visuals */
 .admin-table {
   margin-top: 6px;
