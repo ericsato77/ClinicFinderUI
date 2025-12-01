@@ -137,7 +137,7 @@ const Home = () => {
       </Content>
 
       <Footer style={{ textAlign: 'center', background: '#fff' }}>
-        Clinic Finder ©{new Date().getFullYear()} Created with Ant Design
+        Clinic Finder ©2025
       </Footer>
     </Layout>
   );
