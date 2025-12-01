@@ -51,9 +51,7 @@ const Home = () => {
                   <Button type="primary" size="large" shape="round" icon={<SearchOutlined />} onClick={() => navigate('/search')}>
                     Start Searching
                   </Button>
-                  <Button size="large" shape="round" icon={<ArrowRightOutlined />}>
-                    Learn More
-                  </Button>
+
                 </Space>
               </div>
             </Col>
