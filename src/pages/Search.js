@@ -88,7 +88,7 @@ const SearchPage = () => {
     );
 
     return (
-        <Layout style={{ minHeight: '100vh', background: '#f0f2f5' }}>
+        <Layout style={{ flex: 1, background: '#f0f2f5' }}>
             {/* Mobile Filter Drawer */}
             <Drawer
                 title="Filters"
