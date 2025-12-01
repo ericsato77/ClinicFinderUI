@@ -15,9 +15,7 @@ const MainLayout = () => {
             <Header className="header">
                 <div className="container header-content">
                     <Logo />
-                    <Button type="primary" shape="round" icon={<SearchOutlined />} onClick={() => navigate('/search')}>
-                        Find a Clinic
-                    </Button>
+
                 </div>
             </Header>
 
