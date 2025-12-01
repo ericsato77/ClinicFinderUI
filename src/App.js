@@ -1,8 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import SearchPage from './pages/Search';
+import AdminLogin from './pages/Admin/AdminLogin';
+import AdminDashboard from './pages/Admin/AdminDashboard';
+import './styles/admin.css';
 import { ConfigProvider, Layout, Typography, Button, Row, Col, Card, Space, theme } from 'antd';
-import { MedicineBoxOutlined, SearchOutlined, EnvironmentOutlined, SafetyCertificateOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import { MedicineBoxOutlined, SearchOutlined, EnvironmentOutlined, SafetyCertificateOutlined, ArrowRightOutlined, UserOutlined } from '@ant-design/icons';
 import './App.css';
 
 const { Header, Content, Footer } = Layout;
@@ -45,9 +48,14 @@ const Home = () => {
       <Header className="header">
         <div className="container header-content">
           <Logo />
-          <Button type="primary" shape="round" icon={<SearchOutlined />} onClick={() => navigate('/search')}>
-            Find a Clinic
-          </Button>
+          <div style={{ display: 'flex', gap: 12 }}>
+            <Button type="primary" shape="round" icon={<SearchOutlined />} onClick={() => navigate('/search')}>
+              Find a Clinic
+            </Button>
+            <Button type="default" shape="round" icon={<UserOutlined />} onClick={() => navigate('/admin/login')}>
+              Admin
+            </Button>
+          </div>
         </div>
       </Header>
 
@@ -168,6 +176,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<SearchPage />} />
+
+          {/* Admin routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/*" element={<AdminDashboard />} />
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>

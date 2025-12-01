@@ -1,0 +1,3 @@
+/* Minimal admin styles */
+.header .header-content { display: flex; justify-content: space-between; align-items: center; }
+.admin-breadcrumb { margin-bottom: 16px; }
