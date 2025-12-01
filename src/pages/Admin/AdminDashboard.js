@@ -114,11 +114,19 @@ export default function AdminDashboard() {
 
         <div className="admin-toolbar">
           <div className="left">
-            <Input.Search placeholder="Search clinics by name or address" onSearch={(val) => {
-              if (!val) return setClinics(adminService.getClinics());
-              const filtered = adminService.getClinics().filter(c => (c.name || '').toLowerCase().includes(val.toLowerCase()) || (c.address || '').toLowerCase().includes(val.toLowerCase()));
-              setClinics(filtered);
-            }} style={{ width: 360 }} allowClear />
+            <Input.Search
+              className="admin-search"
+              placeholder="Search clinics by name or address"
+              onSearch={(val) => {
+                if (!val) return setClinics(adminService.getClinics());
+                const filtered = adminService.getClinics().filter(c =>
+                  (c.name || '').toLowerCase().includes(val.toLowerCase()) ||
+                  (c.address || '').toLowerCase().includes(val.toLowerCase())
+                );
+                setClinics(filtered);
+              }}
+              allowClear
+            />
           </div>
           <div className="right">
             <Button onClick={() => { adminService.logActivity('export_activities'); message?.success?.('Export not implemented'); }}>Export</Button>
