@@ -257,6 +257,29 @@
   margin-left: 8px;
 }
 
+/* remove gap between Input.Search field and button */
+.admin-search .ant-input-affix-wrapper {
+  display: flex;
+  align-items: stretch;
+  padding-right: 0;
+}
+
+.admin-search .ant-input {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  margin-right: 0 !important;
+  padding-right: 8px; /* keep small inner spacing */
+}
+
+.admin-search .ant-input-search-button,
+.admin-search .ant-input-suffix {
+  margin-left: 0 !important; /* remove any gap */
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  height: 44px;
+  padding: 0 12px;
+}
+
 /* Table container visuals */
 .admin-table {
   margin-top: 6px;
