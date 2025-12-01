@@ -12,7 +12,7 @@ export default function AdminLogin() {
   const onFinish = (values) => {
     const { username, password } = values;
     // simple hardcoded password check
-    if (password !== 'secret123') {
+    if (password !== '1234') {
       adminService.logActivity('admin_failed_login', { username });
       message.error('Invalid password');
       return;
