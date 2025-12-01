@@ -10,8 +10,13 @@ export default function AdminLogin() {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    const { username } = values;
-    // Simple accept-any login for scaffold; replace with real auth later
+    const { username, password } = values;
+    // simple hardcoded password check
+    if (password !== 'secret123') {
+      adminService.logActivity('admin_failed_login', { username });
+      message.error('Invalid password');
+      return;
+    }
     localStorage.setItem('adminAuth', JSON.stringify({ user: username, ts: Date.now() }));
     adminService.logActivity('admin_login', { user: username });
     message.success('Logged in as admin');
