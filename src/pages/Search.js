@@ -145,7 +145,6 @@ const SearchPage = () => {
                                             <Card
                                                 hoverable
                                                 actions={[
-                                                    <Button type="text" icon={<PhoneOutlined />}>Call</Button>,
                                                     <Button type="primary" ghost icon={<CompassOutlined />}>Directions</Button>
                                                 ]}
                                             >
