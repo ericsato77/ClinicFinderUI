@@ -234,15 +234,17 @@
 /* Make the admin search fill available space in the toolbar */
 .admin-toolbar .left {
   flex: 1 1 auto;
-  min-width: 0; /* allow child to shrink inside flex container */
+  min-width: 0;
 }
 
+/* Keep search a good, not-too-big size */
 .admin-search {
   width: 100%;
-  max-width: none;
+  max-width: 420px; /* cap width so it doesn't get too large */
+  box-sizing: border-box;
 }
 
-/* Ant Input.Search renders an affix wrapper; force it to fill the container */
+/* Ensure Ant input parts fill the .admin-search container */
 .admin-search .ant-input-affix-wrapper,
 .admin-search .ant-input {
   width: 100% !important;
