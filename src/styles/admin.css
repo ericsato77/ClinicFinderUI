@@ -140,128 +140,192 @@
 
 /* Admin dashboard styles */
 .admin-dashboard-container {
-  padding: 28px;
   min-height: calc(100vh - 80px);
-  background: linear-gradient(180deg, #f7f9fc 0%, #f2f6fb 100%);
+  padding: 32px;
+  background: linear-gradient(180deg, #f4f7fb 0%, #eef4fb 100%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: rgba(2,6,23,0.9);
 }
 
-.admin-toolbar {
+/* Centered content card */
+.admin-card-panel {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 20px 50px rgba(16,24,40,0.08);
+  border: 1px solid rgba(16,24,40,0.03);
+}
+
+/* Header row (title + actions) */
+.admin-card-panel > .header-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
+}
+.admin-card-panel .header-left h2 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: -0.2px;
+  color: rgba(2,6,23,0.95);
+}
+.admin-card-panel .header-right {
+  display: flex;
+  gap: 10px;
   align-items: center;
 }
 
-.admin-card-panel {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 10px 30px rgba(16,24,40,0.06);
+/* Stats row */
+.admin-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
   margin-bottom: 20px;
 }
-
-/* stats row */
-.admin-stats-row {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 18px;
-  flex-wrap: wrap;
+@media (max-width: 880px) {
+  .admin-stats-row { grid-template-columns: 1fr; }
 }
 .admin-stat-card {
-  flex: 1 1 220px;
-  background: linear-gradient(180deg, #fff, #fbfdff);
-  border-radius: 10px;
-  padding: 16px;
   display: flex;
-  align-items: center;
   gap: 12px;
-  box-shadow: 0 6px 18px rgba(16,24,40,0.04);
-  transition: transform .12s ease, box-shadow .12s ease;
+  align-items: center;
+  padding: 14px;
+  border-radius: 12px;
+  background: linear-gradient(180deg,#fff,#fbfdff);
+  box-shadow: 0 8px 30px rgba(16,24,40,0.04);
+  border: 1px solid rgba(16,24,40,0.03);
 }
-.admin-stat-card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(16,24,40,0.06); }
-
 .stat-icon {
   width: 56px;
   height: 56px;
   border-radius: 10px;
-  background: linear-gradient(135deg,#1677ff 0%, #69c0ff 100%);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   font-size: 20px;
-  box-shadow: 0 6px 18px rgba(22,119,255,0.12);
+  box-shadow: 0 6px 18px rgba(16,24,40,0.06);
 }
-.stat-body { display: flex; flex-direction: column; gap: 4px; }
-.stat-label { color: rgba(2,6,23,0.6); font-size: 13px; }
-.stat-value { font-weight: 700; font-size: 20px; color: rgba(2,6,23,0.9); }
+.stat-body { display:flex; flex-direction:column; }
+.stat-label { font-size: 13px; color: rgba(2,6,23,0.55); }
+.stat-value { font-weight: 700; font-size: 18px; color: rgba(2,6,23,0.92); }
 
-/* toolbar */
+/* Toolbar */
 .admin-toolbar {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 16px;
   align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
 }
-.admin-toolbar .ant-input { max-width: 360px; }
+.admin-toolbar .left { display:flex; gap:12px; align-items:center; }
+.admin-toolbar .right { display:flex; gap:10px; align-items:center; }
 
-/* table visuals */
-.admin-table .ant-table {
-  background: transparent;
-  border-radius: 8px;
-  overflow: hidden;
+/* Search input slight styling (increase specificity to override Ant defaults) */
+.admin-toolbar .ant-input {
+  border-radius: 10px;
+  height: 44px;
+  box-shadow: inset 0 1px 0 rgba(16,24,40,0.02);
 }
+
+/* Table container visuals */
+.admin-table {
+  margin-top: 6px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(16,24,40,0.04);
+  background: #fff;
+  box-shadow: 0 6px 24px rgba(16,24,40,0.03);
+}
+
+/* Table header */
 .admin-table .ant-table-thead > tr > th {
   background: linear-gradient(180deg,#fbfdff,#fff);
+  border-bottom: 1px solid rgba(16,24,40,0.04);
+  color: rgba(2,6,23,0.7);
   font-weight: 700;
-  color: rgba(2,6,23,0.75);
+  height: 56px;
+  padding: 12px 16px;
 }
+
+/* Table body rows */
 .admin-table .ant-table-tbody > tr > td {
+  padding: 12px 16px;
+  vertical-align: middle;
+  color: rgba(2,6,23,0.85);
+  font-size: 14px;
+  border-bottom: 1px solid rgba(16,24,40,0.03);
   background: #fff;
 }
 .admin-table .ant-table-tbody > tr:hover > td {
-  background: #fafcff;
+  background: linear-gradient(90deg, rgba(10,120,255,0.02), rgba(10,120,255,0.01));
 }
 
-/* activity log */
-.activity-log-table .ant-table-tbody > tr > td {
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  font-size: 13px;
-  color: rgba(2,6,23,0.78);
+/* Small action buttons */
+.admin-table .ant-btn {
+  border-radius: 8px;
+  height: 36px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.admin-table .ant-btn-dangerous {
+  background: linear-gradient(90deg,#ff4d4f,#ff7875);
+  border: none;
+  color: #fff;
 }
 
-/* modal / form tweaks */
+/* Activity log styling */
+.activity-log-table .ant-table {
+  background: transparent;
+}
+.activity-log-table .ant-table-tbody > tr > td pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 12px;
+}
+
+/* Modal appearance */
 .ant-modal-content {
   border-radius: 12px;
+  overflow: hidden;
 }
+.ant-modal-header {
+  background: linear-gradient(180deg,#fff,#fbfdff);
+  border-bottom: 1px solid rgba(16,24,40,0.03);
+}
+.ant-modal-title {
+  font-weight: 700;
+  color: rgba(2,6,23,0.9);
+}
+
+/* Form inputs inside modal */
 .ant-form-item .ant-input,
 .ant-form-item .ant-input-password {
   border-radius: 8px;
   height: 44px;
 }
 
-/* responsive tweaks */
+/* Small helper text and footer */
+.admin-empty {
+  text-align: center;
+  padding: 40px;
+  color: rgba(2,6,23,0.45);
+}
+
+/* Responsive rules */
 @media (max-width: 720px) {
-  .admin-dashboard-container { padding: 12px; }
-  .admin-toolbar { flex-direction: column; gap: 8px; align-items: stretch; }
+  .admin-card-panel { padding: 12px; }
+  .admin-stats-row { grid-template-columns: 1fr; gap: 10px; }
+  .admin-toolbar { flex-direction: column; align-items: stretch; gap: 10px; }
+  .admin-card-panel > .header-row { flex-direction: column; align-items: flex-start; gap: 10px; }
 }
 
-/* smaller screens */
-@media (max-width: 480px) {
-  .admin-login-container { padding: 24px 12px; }
-  .admin-card { padding: 20px; }
-  .admin-card {
-    width: 100%;
-    border-radius: 12px;
-  }
-  .admin-card .login-brand .logo-icon { width: 48px; height: 48px; font-size: 20px; }
-  .admin-card .login-brand .logo-title { font-size: 18px; }
-}
-
-@media (max-width: 880px) {
-  .admin-stats-row { gap: 12px; }
-  .admin-stat-card { flex: 1 1 180px; padding: 14px; }
-  .admin-toolbar { flex-direction: column; align-items: stretch; }
-}
+/* small tweaks to ensure admin login styles remain */
+.admin-login-container { /* keep existing nice login visuals */ }
+.admin-card { /* keep existing login card visuals */ }
