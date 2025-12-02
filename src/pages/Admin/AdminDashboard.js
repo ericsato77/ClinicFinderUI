@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Button, Table, Modal, Form, Input, Tabs, Space, Popconfirm, Typography, message } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, DatabaseOutlined, TeamOutlined, HistoryOutlined } from '@ant-design/icons';
 import { adminService } from '../../services/adminService';
+import '../../styles/admin.css';
 
 const { TabPane } = Tabs;
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 export default function AdminDashboard() {
   const [clinics, setClinics] = useState([]);
@@ -38,6 +39,7 @@ export default function AdminDashboard() {
     adminService.deleteClinic(id);
     adminService.logActivity('clinic_deleted', { id });
     loadData();
+    message.success('Clinic deleted');
   };
 
   const onFinish = (vals) => {
@@ -45,9 +47,11 @@ export default function AdminDashboard() {
       const updated = { ...editing, ...vals };
       adminService.updateClinic(updated);
       adminService.logActivity('clinic_updated', { id: updated.id, name: updated.name });
+      message.success('Clinic updated');
     } else {
       const newClinic = adminService.addClinic(vals);
       adminService.logActivity('clinic_added', { id: newClinic.id, name: newClinic.name });
+      message.success('Clinic added');
     }
     setModalOpen(false);
     loadData();
@@ -129,7 +133,7 @@ export default function AdminDashboard() {
             />
           </div>
           <div className="right">
-            <Button onClick={() => { adminService.logActivity('export_activities'); message?.success?.('Export not implemented'); }}>Export</Button>
+            <Button onClick={() => { adminService.logActivity('export_activities'); message.info('Export not implemented'); }}>Export</Button>
           </div>
         </div>
 

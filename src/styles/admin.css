@@ -375,9 +375,6 @@
   .admin-card-panel > .header-row { flex-direction: column; align-items: flex-start; gap: 10px; }
 }
 
-/* small tweaks to ensure admin login styles remain */
-.admin-login-container { /* keep existing nice login visuals */ }
-.admin-card { /* keep existing login card visuals */ }
 /* remove required asterisk for labels inside admin login card */
 .admin-card .ant-form-item-required::before {
   display: none !important;
