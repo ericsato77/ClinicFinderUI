@@ -3,24 +3,15 @@ import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from 'r
 import SearchPage from './pages/Search';
 import AdminLogin from './pages/Admin/AdminLogin';
 import AdminDashboard from './pages/Admin/AdminDashboard';
-import './styles/admin.css';
-import { ConfigProvider, Layout, Typography, Button, Row, Col, Card, Space, theme } from 'antd';
-import { MedicineBoxOutlined, SearchOutlined, EnvironmentOutlined, SafetyCertificateOutlined, ArrowRightOutlined, UserOutlined } from '@ant-design/icons';
+import MainLayout from './components/MainLayout';
+import { ConfigProvider, Typography, Button, Row, Col, Card, Space, theme } from 'antd';
+import { MedicineBoxOutlined, SearchOutlined, EnvironmentOutlined, SafetyCertificateOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import './App.css';
+import './styles/admin.css';
 
-const { Header, Content, Footer } = Layout;
 const { Title, Text, Paragraph } = Typography;
 
 // --- Components ---
-
-const Logo = () => (
-  <div className="logo-container">
-    <div className="logo-icon">
-      <MedicineBoxOutlined style={{ fontSize: '24px', color: '#fff' }} />
-    </div>
-    <span className="logo-text">Clinic Finder</span>
-  </div>
-);
 
 const FeatureCard = ({ icon, title, description }) => {
   const { token } = theme.useToken();
@@ -44,112 +35,98 @@ const Home = () => {
   const { token } = theme.useToken();
 
   return (
-    <Layout className="layout">
-      <Header className="header">
-        <div className="container header-content">
-          <Logo />
-          <div style={{ display: 'flex', gap: 12 }}>
-            <Button type="primary" shape="round" icon={<SearchOutlined />} onClick={() => navigate('/search')}>
-              Find a Clinic
-            </Button>
-            <Button type="default" shape="round" icon={<UserOutlined />} onClick={() => navigate('/admin/login')}>
-              Admin
-            </Button>
-          </div>
-        </div>
-      </Header>
+    <>
+      {/* Hero Section */}
+      <div className="hero-section">
+        <div className="container">
+          <Row gutter={[48, 48]} align="middle">
+            <Col xs={24} md={12}>
+              <div className="hero-content">
+                <Title level={1} className="hero-title">
+                  Your Health, <br />
+                  <span style={{ color: token.colorPrimary }}>Our Priority.</span>
+                </Title>
+                <Paragraph className="hero-subtitle">
+                  Find the best clinics and doctors near you instantly.
+                  Book appointments, read reviews, and get the care you deserve.
+                </Paragraph>
+                <Space size="middle">
+                  <Button type="primary" size="large" shape="round" icon={<SearchOutlined />} onClick={() => navigate('/search')}>
+                    Start Searching
+                  </Button>
 
-      <Content>
-        {/* Hero Section */}
-        <div className="hero-section">
-          <div className="container">
-            <Row gutter={[48, 48]} align="middle">
-              <Col xs={24} md={12}>
-                <div className="hero-content">
-                  <Title level={1} className="hero-title">
-                    Your Health, <br />
-                    <span style={{ color: token.colorPrimary }}>Our Priority.</span>
-                  </Title>
-                  <Paragraph className="hero-subtitle">
-                    Find the best clinics and doctors near you instantly.
-                    Book appointments, read reviews, and get the care you deserve.
-                  </Paragraph>
-                  <Space size="middle">
-                    <Button type="primary" size="large" shape="round" icon={<SearchOutlined />} onClick={() => navigate('/search')}>
-                      Start Searching
-                    </Button>
-                    <Button size="large" shape="round" icon={<ArrowRightOutlined />}>
-                      Learn More
-                    </Button>
-                  </Space>
-                </div>
-              </Col>
-              <Col xs={24} md={12}>
-                <div className="hero-image-placeholder">
-                  {/* Abstract visual representation */}
-                  <div className="floating-card card-1">
-                    <SafetyCertificateOutlined style={{ fontSize: '24px', color: token.colorPrimary }} />
-                    <div>
-                      <Text strong>Verified Clinics</Text>
-                      <br />
-                      <Text type="secondary" style={{ fontSize: '12px' }}>100% Trusted</Text>
-                    </div>
+                </Space>
+              </div>
+            </Col>
+            <Col xs={24} md={12}>
+              <div className="hero-image-placeholder">
+                {/* Abstract visual representation */}
+                <div className="floating-card card-1">
+                  <SafetyCertificateOutlined style={{ fontSize: '24px', color: token.colorPrimary }} />
+                  <div>
+                    <Text strong>Verified Clinics</Text>
+                    <br />
+                    <Text type="secondary" style={{ fontSize: '12px' }}>100% Trusted</Text>
                   </div>
-                  <div className="floating-card card-2">
-                    <EnvironmentOutlined style={{ fontSize: '24px', color: '#52c41a' }} />
-                    <div>
-                      <Text strong>Near You</Text>
-                      <br />
-                      <Text type="secondary" style={{ fontSize: '12px' }}>GPS Enabled</Text>
-                    </div>
-                  </div>
-                  <div className="hero-circle"></div>
                 </div>
-              </Col>
-            </Row>
-          </div>
+                <div className="floating-card card-2">
+                  <EnvironmentOutlined style={{ fontSize: '24px', color: '#52c41a' }} />
+                  <div>
+                    <Text strong>Near You</Text>
+                    <br />
+                    <Text type="secondary" style={{ fontSize: '12px' }}>GPS Enabled</Text>
+                  </div>
+                </div>
+                <div className="hero-circle"></div>
+              </div>
+            </Col>
+          </Row>
         </div>
+      </div>
 
-        {/* Features Section */}
-        <div className="features-section">
-          <div className="container">
-            <div style={{ textAlign: 'center', marginBottom: 48 }}>
-              <Title level={2}>Why Choose Clinic Finder?</Title>
-              <Text type="secondary">We make healthcare accessible and hassle-free.</Text>
-            </div>
-            <Row gutter={[32, 32]}>
-              <Col xs={24} md={8}>
-                <FeatureCard
-                  icon={<SearchOutlined style={{ fontSize: '32px' }} />}
-                  title="Easy Search"
-                  description="Find clinics by specialty, location, or name with our advanced search filters."
-                />
-              </Col>
-              <Col xs={24} md={8}>
-                <FeatureCard
-                  icon={<EnvironmentOutlined style={{ fontSize: '32px' }} />}
-                  title="Location Based"
-                  description="Get directions to the nearest clinics and see them on an interactive map."
-                />
-              </Col>
-              <Col xs={24} md={8}>
-                <FeatureCard
-                  icon={<SafetyCertificateOutlined style={{ fontSize: '32px' }} />}
-                  title="Verified Reviews"
-                  description="Read genuine reviews from other patients to make informed decisions."
-                />
-              </Col>
-            </Row>
+      {/* Features Section */}
+      <div className="features-section">
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
+            <Title level={2}>Why Choose Clinic Finder?</Title>
+            <Text type="secondary">We make healthcare accessible and hassle-free.</Text>
           </div>
+          <Row gutter={[32, 32]}>
+            <Col xs={24} md={8}>
+              <FeatureCard
+                icon={<SearchOutlined style={{ fontSize: '32px' }} />}
+                title="Easy Search"
+                description="Find clinics by specialty, location, or name with our advanced search filters."
+              />
+            </Col>
+            <Col xs={24} md={8}>
+              <FeatureCard
+                icon={<EnvironmentOutlined style={{ fontSize: '32px' }} />}
+                title="Location Based"
+                description="Get directions to the nearest clinics and see them on an interactive map."
+              />
+            </Col>
+            <Col xs={24} md={8}>
+              <FeatureCard
+                icon={<SafetyCertificateOutlined style={{ fontSize: '32px' }} />}
+                title="Verified Reviews"
+                description="Read genuine reviews from other patients to make informed decisions."
+              />
+            </Col>
+          </Row>
         </div>
-      </Content>
-
-      <Footer style={{ textAlign: 'center', background: '#fff' }}>
-        Clinic Finder ©{new Date().getFullYear()} Created with Ant Design
-      </Footer>
-    </Layout>
+      </div>
+    </>
   );
 };
+
+function RequireAdmin({ children }) {
+  const auth = (() => {
+    try { return JSON.parse(localStorage.getItem('adminAuth')); } catch { return null; }
+  })();
+  if (!auth) return <Navigate to="/admin/login" replace />;
+  return children;
+}
 
 function App() {
   return (
@@ -174,13 +151,24 @@ function App() {
     >
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/search" element={<SearchPage />} />
+          {/* Public site layout */}
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/search" element={<SearchPage />} />
+          </Route>
 
           {/* Admin routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/*" element={<AdminDashboard />} />
+          <Route
+            path="/admin"
+            element={
+              <RequireAdmin>
+                <AdminDashboard />
+              </RequireAdmin>
+            }
+          />
 
+          {/* fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
