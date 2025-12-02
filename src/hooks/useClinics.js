@@ -30,8 +30,8 @@ export const useClinics = () => {
             setError(null);
 
             // Convert filters to API format (emergency and wheelchair should be 'yes' or empty string)
+            // Don't send searchQuery to backend - we filter locally for instant results
             const apiFilters = {
-                searchQuery: filters.searchQuery,
                 district: filters.district,
                 region: filters.region,
                 amenity: filters.amenity,
@@ -121,14 +121,36 @@ export const useClinics = () => {
         fetchMetadata();
     }, [fetchMetadata]);
 
-    // Fetch facilities when filters change
+    // Fetch facilities when filters change (excluding searchQuery which is filtered client-side)
     useEffect(() => {
         fetchFacilities();
-    }, [fetchFacilities]);
+    }, [
+        filters.district,
+        filters.region,
+        filters.amenity,
+        filters.emergency,
+        filters.wheelchair,
+        filters.distance,
+        filters.useDistance
+    ]);
 
     const filteredClinics = useMemo(() => {
-        return facilities;
-    }, [facilities]);
+        let filtered = [...facilities];
+        
+        // Client-side search filtering for instant results
+        if (filters.searchQuery && filters.searchQuery.trim()) {
+            const query = filters.searchQuery.toLowerCase().trim();
+            filtered = filtered.filter(facility => 
+                facility.name?.toLowerCase().includes(query) ||
+                facility.district?.toLowerCase().includes(query) ||
+                facility.region?.toLowerCase().includes(query) ||
+                facility.amenity?.toLowerCase().includes(query) ||
+                facility.operator?.toLowerCase().includes(query)
+            );
+        }
+        
+        return filtered;
+    }, [facilities, filters.searchQuery]);
 
     const updateFilter = (key, value) => {
         setFilters(prev => ({

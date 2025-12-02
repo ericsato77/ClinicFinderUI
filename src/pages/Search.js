@@ -447,10 +447,13 @@ const SearchPage = () => {
                         <Row gutter={[16, 16]} style={{ marginBottom: '16px', alignItems: 'center' }}>
                             <Col flex="auto">
                                 <Input.Search
-                                    placeholder="Search clinics, doctors, or specialties..."
+                                    placeholder="Search facilities by name..."
                                     size="large"
                                     enterButton={<Button type="primary" icon={<SearchOutlined />}>Search</Button>}
+                                    value={filters.searchQuery}
+                                    onChange={(e) => updateFilter('searchQuery', e.target.value)}
                                     onSearch={(val) => updateFilter('searchQuery', val)}
+                                    allowClear
                                 />
                             </Col>
                             <Col flex="none" xs={24} md={0}>

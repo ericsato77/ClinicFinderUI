@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, Form, Input, Button, Typography, message } from 'antd';
 import { MedicineBoxOutlined } from '@ant-design/icons';
@@ -10,19 +10,25 @@ const { Title, Text } = Typography;
 export default function AdminLogin() {
   const navigate = useNavigate();
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     const { username, password } = values;
-    // simple hardcoded password check
-    if (password !== '1234') {
-      adminService.logActivity('admin_failed_login', { username });
-      message.error('Invalid password');
-      return;
+    
+    try {
+      setLoading(true);
+      console.log('Attempting login with:', { username, password: '***' });
+      const result = await adminService.login(username, password);
+      console.log('Login successful:', result);
+      message.success('Login successful!');
+      navigate('/admin');
+    } catch (error) {
+      console.error('Login error:', error);
+      const errorMsg = error.message || error.response?.data?.error || 'Login failed. Please check your credentials.';
+      message.error(errorMsg);
+    } finally {
+      setLoading(false);
     }
-    localStorage.setItem('adminAuth', JSON.stringify({ user: username, ts: Date.now() }));
-    adminService.logActivity('admin_login', { user: username });
-    message.success('Logged in as admin');
-    navigate('/admin');
   };
 
   return (
@@ -53,7 +59,7 @@ export default function AdminLogin() {
           </div>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" block>
+            <Button type="primary" htmlType="submit" block loading={loading}>
               Sign In
             </Button>
           </Form.Item>

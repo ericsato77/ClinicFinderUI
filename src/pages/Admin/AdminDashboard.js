@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Table, Modal, Input, Tabs, Space, Typography, message } from 'antd';
-import { DatabaseOutlined, TeamOutlined, HistoryOutlined } from '@ant-design/icons';
+import { DatabaseOutlined, TeamOutlined, HistoryOutlined, LogoutOutlined } from '@ant-design/icons';
 import { adminService } from '../../services/adminService';
 
 const { TabPane } = Tabs;
 const { Title, Text } = Typography;
 
 export default function AdminDashboard() {
+  const navigate = useNavigate();
   const [clinics, setClinics] = useState([]);
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const loadData = async () => {
     setLoading(true);
@@ -26,7 +29,19 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     loadData();
+    const user = adminService.getCurrentUser();
+    setCurrentUser(user);
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      await adminService.logout();
+      message.success('Logged out successfully');
+      navigate('/admin/login');
+    } catch (error) {
+      message.error('Logout failed');
+    }
+  };
 
   const [detailsVisible, setDetailsVisible] = useState(false);
   const [selectedClinic, setSelectedClinic] = useState(null);
@@ -57,10 +72,16 @@ export default function AdminDashboard() {
         <div className="header-row">
           <div className="header-left">
             <h2>Admin Dashboard</h2>
-            <div style={{ color: 'rgba(2,6,23,0.6)', fontSize: 13 }}>View health facilities from OpenStreetMap data (Read-only)</div>
+            <div style={{ color: 'rgba(2,6,23,0.6)', fontSize: 13 }}>
+              {currentUser && `Welcome, ${currentUser.username || currentUser.first_name || 'Admin'} • `}
+              View health facilities from OpenStreetMap data (Read-only)
+            </div>
           </div>
           <div className="header-right">
-            <Button onClick={loadData} loading={loading} icon={<DatabaseOutlined />}>Refresh</Button>
+            <Space>
+              <Button onClick={loadData} loading={loading} icon={<DatabaseOutlined />}>Refresh</Button>
+              <Button onClick={handleLogout} icon={<LogoutOutlined />}>Logout</Button>
+            </Space>
           </div>
         </div>
 

@@ -7,10 +7,22 @@ import AdminLogin from './pages/Admin/AdminLogin';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import { ConfigProvider, Layout, Typography, Button, Row, Col, Card, Space, theme } from 'antd';
 import { MedicineBoxOutlined, SearchOutlined, EnvironmentOutlined, SafetyCertificateOutlined, ArrowRightOutlined, UserOutlined } from '@ant-design/icons';
+import { adminService } from './services/adminService';
 import './styles/admin.css';
 import './App.css';
 
 const { Title, Text, Paragraph } = Typography;
+
+// Protected Route Component
+const ProtectedRoute = ({ children }) => {
+  const isAuthenticated = adminService.isAuthenticated();
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/admin/login" replace />;
+  }
+  
+  return children;
+};
 
 // --- Components ---
 
@@ -154,7 +166,11 @@ function App() {
 
           {/* Admin routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/*" element={<AdminDashboard />} />
+          <Route path="/admin/*" element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          } />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
