@@ -104,6 +104,7 @@ const SearchPage = () => {
     const [selectedFacility, setSelectedFacility] = useState(null);
     const [userLocation, setUserLocation] = useState(null);
     const [gettingLocation, setGettingLocation] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
 
     // Get user location on mount
     useEffect(() => {
@@ -136,6 +137,16 @@ const SearchPage = () => {
             refetchWithLocation(userLocation.lat, userLocation.lng);
         }
     }, [userLocation, filters.useDistance, filters.distance, refetchWithLocation]);
+
+    // Track window resize for responsive FloatButton
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 992);
+        };
+        
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const handleGetDirections = (clinic) => {
         if (!userLocation) {
@@ -203,7 +214,7 @@ const SearchPage = () => {
                 >
                     {districts.map(d => (
                         <Option key={d.district} value={d.district}>
-                            {d.district} ({d.count})
+                            {d.district}{d.count ? ` (${d.count})` : ''}
                         </Option>
                     ))}
                 </Select>
@@ -428,9 +439,9 @@ const SearchPage = () => {
                 footer={null}
                 width="90%"
                 style={{ top: 20 }}
-                bodyStyle={{ height: '70vh', padding: 0 }}
+                styles={{ body: { height: '70vh', padding: 0 } }}
             >
-                <MapContent />
+                {mobileMapVisible && <MapContent />}
             </Modal>
 
             <Content style={{ padding: '24px' }}>
@@ -556,7 +567,7 @@ const SearchPage = () => {
                             {/* Map View (Desktop) */}
                             <Col xs={0} lg={10} xl={10}>
                                 <Card
-                                    bodyStyle={{ padding: 0, height: '100%' }}
+                                    styles={{ body: { padding: 0, height: '100%' } }}
                                     style={{
                                         height: 'calc(100vh - 150px)',
                                         position: 'sticky',
@@ -572,14 +583,16 @@ const SearchPage = () => {
                 </Row>
             </Content>
 
-            {/* Mobile Map Toggle (Float Button) */}
-            <FloatButton
-                icon={<EnvironmentOutlined />}
-                type="primary"
-                style={{ right: 24, bottom: 24 }}
-                onClick={() => setMobileMapVisible(true)}
-                tooltip="View Map"
-            />
+            {/* Mobile Map Toggle (Float Button) - Only visible on small screens */}
+            {isMobile && (
+                <FloatButton
+                    icon={<EnvironmentOutlined />}
+                    type="primary"
+                    style={{ right: 24, bottom: 24 }}
+                    onClick={() => setMobileMapVisible(true)}
+                    tooltip="View Map"
+                />
+            )}
         </Layout>
     );
 };
