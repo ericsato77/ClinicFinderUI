@@ -231,7 +231,7 @@ const SearchPage = () => {
                 >
                     {amenityTypes.map(type => (
                         <Option key={type.amenity} value={type.amenity}>
-                            {type.amenity.charAt(0).toUpperCase() + type.amenity.slice(1)} ({type.count})
+                            {type.amenity.charAt(0).toUpperCase() + type.amenity.slice(1)}{type.count ? ` (${type.count})` : ''}
                         </Option>
                     ))}
                 </Select>

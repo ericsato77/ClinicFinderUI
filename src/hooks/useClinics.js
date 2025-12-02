@@ -4,7 +4,8 @@ import { getFacilitiesGeoJSON, getDistricts, getAmenityTypes, getNearbyFacilitie
 export const regionOptions = [
     'Central',
     'Northern',
-    'Southern'
+    'Southern',
+    'South',
 ];
 
 export const useClinics = () => {
