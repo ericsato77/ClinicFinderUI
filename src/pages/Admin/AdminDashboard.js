@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Table, Modal, Form, Input, Tabs, Space, Popconfirm, Typography, message } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, DatabaseOutlined, TeamOutlined, HistoryOutlined } from '@ant-design/icons';
+import { Button, Table, Modal, Input, Tabs, Space, Typography, message } from 'antd';
+import { DatabaseOutlined, TeamOutlined, HistoryOutlined } from '@ant-design/icons';
 import { adminService } from '../../services/adminService';
 
 const { TabPane } = Tabs;
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 export default function AdminDashboard() {
   const [clinics, setClinics] = useState([]);
   const [activities, setActivities] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editing, setEditing] = useState(null);
-  const [form] = Form.useForm();
-
   const [loading, setLoading] = useState(false);
 
   const loadData = async () => {

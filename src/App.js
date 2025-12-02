@@ -149,9 +149,8 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/directions" element={<DirectionsPage />} />
           </Route>
-          <Route path="/" element={<Home />} />
-          <Route path="/search" element={<SearchPage />} />
 
           {/* Admin routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
