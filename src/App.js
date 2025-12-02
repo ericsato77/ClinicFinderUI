@@ -1,9 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import SearchPage from './pages/Search';
+import DirectionsPage from './pages/Directions';
 import MainLayout from './components/MainLayout';
-import { ConfigProvider, Typography, Button, Row, Col, Card, Space, theme } from 'antd';
-import { MedicineBoxOutlined, SearchOutlined, EnvironmentOutlined, SafetyCertificateOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import AdminLogin from './pages/Admin/AdminLogin';
+import AdminDashboard from './pages/Admin/AdminDashboard';
+import { ConfigProvider, Layout, Typography, Button, Row, Col, Card, Space, theme } from 'antd';
+import { MedicineBoxOutlined, SearchOutlined, EnvironmentOutlined, SafetyCertificateOutlined, ArrowRightOutlined, UserOutlined } from '@ant-design/icons';
+import './styles/admin.css';
 import './App.css';
 
 const { Title, Text, Paragraph } = Typography;
@@ -51,7 +55,9 @@ const Home = () => {
                   <Button type="primary" size="large" shape="round" icon={<SearchOutlined />} onClick={() => navigate('/search')}>
                     Start Searching
                   </Button>
-
+                  <Button type="default" size="large" shape="round" icon={<UserOutlined />} onClick={() => navigate('/admin/login')}>
+                    Admin Login
+                  </Button>
                 </Space>
               </div>
             </Col>
@@ -144,6 +150,13 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<SearchPage />} />
           </Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<SearchPage />} />
+
+          {/* Admin routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/*" element={<AdminDashboard />} />
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
